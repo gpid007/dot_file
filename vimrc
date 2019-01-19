@@ -59,6 +59,7 @@ let g:vimshell_force_overwrite_statusline = 0
 
 " ---------- TAB ----------
 " set paste
+set nowrap
 set autoindent
 set tabstop=4
 set shiftwidth=4
