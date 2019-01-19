@@ -23,7 +23,7 @@ GNOME-TERMINAL
 
 INFO
 ----
-```
+``
 TMUX
 cat <<EOF>> ~/.tmux.conf
 set -g default-terminal "screen-256color"
@@ -40,4 +40,4 @@ if &term == "screen"
     set t_Co=256
 endif
 EOF
-```
+``
