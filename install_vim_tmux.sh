@@ -11,29 +11,13 @@ OWN_PATH=$(dirname "$relpath $0")
 LOG=$OWN_PATH/log_install
 
 
-echo -e "\n$(date +%Y-%m-%d' '%T) \n# ========== READ PUTTY ========== #" | tee -a $LOG
-echo -e "Read the log_install.log for configuration details!\nWill you use PUTTY? [Y/n] "
-read PUTTY </dev/tty
-case "$PUTTY" in
-    [yY][eE][sS]|[yY])
-        echo -e "PUTTY:\n\tConnection > Data > Terminal-type-string = xterm-256color" | tee -a $LOG
-        ;;
-    *)
-        echo -e "GNOME-TERMINAL:\n\tPreferences > Colors" | tee -a $LOG
-        echo -e "\t\t> Text and Background Color > Built-in schemes: Solarized dark" | tee -a $LOG
-        echo -e "\t\t> Palette > Built-in schemes: Solarized" | tee -a $LOG
-        echo -e "\t\t> DISABLE: Show bold text in bright colors" | tee -a $LOG
-        sed -i "s/let g:solarized_termcolors=256/\"let g:solarized_termcolors=256/" $OWN_PATH/vimrc
-        sed -i "s/\" let g:solarized_use16=1/let g:solarized_use16=1/" $OWN_PATH/vimrc
-        ;;
-esac
-
-
 echo -e "\n$(date +%Y-%m-%d' '%T) \n# ========== OS-RELEASE INSTALL ========== #" | tee -a $LOG
 if [ $(which yum) ]; then
     sudo yum install -y vim git gcc gcc-c++ ctags cmake python3-devel golang ncurses-devel tmux
 else
     sudo apt install -y vim git gcc g++ ctags cmake python3-dev golang-go ncurses-dev tmux
+    sed -i "s/let g:solarized_termcolors=256/\"let g:solarized_termcolors=256/" $OWN_PATH/vimrc
+    sed -i "s/\" let g:solarized_use16=1/let g:solarized_use16=1/" $OWN_PATH/vimrc
 fi
 echo "Success" | tee -a $LOG
 
