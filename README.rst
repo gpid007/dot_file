@@ -1,7 +1,12 @@
-:: 
+=======
+INSTALL
+=======
+.. copy-paste-run:: 
    git clone https://github.com/gpid007/dot_file.git $HOME
     ./dot_file/install_vim_tmux.sh
 
+CONFIG
+------
 .. PUTTY::
     Connection > Data > Terminal-type-string = xterm-256color
 
@@ -11,6 +16,8 @@
         Palette > Built-in schemes: Solarized
         DISABLE: Show bold text in bright colors
 
+INFO
+----
 .. TMUX::
     cat <<EOF>> ~/.tmux.conf
     set -g default-terminal "screen-256color"
