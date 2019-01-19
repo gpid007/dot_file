@@ -1,4 +1,4 @@
-INSTALLATION::
+.. bash::
     git clone https://github.com/gpid007/dot_file.git $HOME
     ./dot_file/install_vim_tmux.sh
 
