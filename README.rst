@@ -23,21 +23,21 @@ GNOME-TERMINAL
 
 INFO
 ----
-``
-TMUX
-cat <<EOF>> ~/.tmux.conf
-set -g default-terminal "screen-256color"
-EOF
 
-SCREEN
-cat <<EOF>> ~/.screenrc
-term "screen-256color"
-EOF
+TMUX::
+   cat <<EOF>> ~/.tmux.conf
+   set -g default-terminal "screen-256color"
+   EOF
 
-VIM
-cat <<EOF>>~/.vimrc
-if &term == "screen"
-    set t_Co=256
-endif
-EOF
-``
+SCREEN::
+   cat <<EOF>> ~/.screenrc
+   term "screen-256color"
+   EOF
+
+VIM::
+   cat <<EOF>>~/.vimrc
+   if &term == "screen"
+      set t_Co=256
+   endif
+   EOF
+
