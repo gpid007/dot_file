@@ -2,7 +2,7 @@
 set -e
 
 
-sudo echo -e "\n# ====================== #\n#    INSTALL VIM TMUX    #\n# ====================== #"
+sudo echo -e "\n# ====================== #\n#    INSTALL VIM TMUX    #\n# ====================== #" > $LOG
 VIM=~/vim
 VDOT=~/.vim
 GIT_BASH=~/.bash-git-prompt
