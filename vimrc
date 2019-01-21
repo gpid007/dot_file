@@ -103,14 +103,13 @@ inoremap {<CR> {<CR>}<ESC>O
 inoremap {;<CR> {<CR>};<ESC>O
 
 " ---------- COLOR ----------
-""""""""""""let g:solarized_termcolors=256
+" let g:solarized_termcolors=256
 let g:solarized_use16=1
 syntax on
 set hlsearch
 set background=dark
 colorscheme solarized8_high "_flat
 set colorcolumn=80
-" Must set terminal color-profile-scheme to solarized
 
 " ---------- INDENT GUIDES ----------
 highlight LineNr ctermfg=darkgray
@@ -123,4 +122,3 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=black
 
 " ---------- FILENAME COMPLETION ----------
 set wildmode=longest,list,full
-

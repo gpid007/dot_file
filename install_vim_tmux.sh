@@ -16,8 +16,6 @@ if [ $(which yum) ]; then
     sudo yum install -y vim git gcc gcc-c++ ctags cmake python3-devel golang ncurses-devel tmux
 else
     sudo apt install -y vim git gcc g++ ctags cmake python3-dev golang-go ncurses-dev tmux
-    sed -i "s/let g:solarized_termcolors=256/\"let g:solarized_termcolors=256/" $OWN_PATH/vimrc
-    sed -i "s/\" let g:solarized_use16=1/let g:solarized_use16=1/" $OWN_PATH/vimrc
 fi
 echo "Success" | tee -a $LOG
 
@@ -92,13 +90,9 @@ bind m set -g mode-mouse on \; set -g mouse-resize-pane on \; set -g mouse-selec
 bind M set -g mode-mouse off \; set -g mouse-resize-pane off \; set -g mouse-select-pane off \; set -g mouse-select-window off \; display "Mouse OFF"
 EOF
 fi
-
 # ---------- .TMUX.CONF COPY  ----------
 cat ~/dot_file/tmux.conf >> ~/.tmux.conf
-
 echo "Success" | tee -a $LOG
-
-
 echo -e "\n$(date +%Y-%m-%d' '%T) \n# ========== GIT BASH ========= #" | tee -a $LOG
 cat <<EOF>> ~/.bashrc
 GIT_PROMPT_THEME=Solarized
@@ -106,22 +100,16 @@ GIT_PROMPT_ONLY_IN_REPO=1
 source $GIT_BASH/gitprompt.sh
 EOF
 echo "Success" | tee -a $LOG
-
-
 # ========== DONE ========== #
 echo "Done." | tee -a $LOG
 cat $LOG
 exit
 # ========== DONE ========== #
-
-
 echo -e "\n$(date +%Y-%m-%d' '%T) \n# ========== BASHRC PS1 ========== #" | tee -a $LOG
-
 # ---------- INSTANCE_NAME ----------
 cat <<EOF> ~/instance_name
 micro1
 EOF
-
 # ---------- EC2-USER ----------
 cat <<EOF> ~/.bashrc
 if [ -f /etc/bashrc ]; then
@@ -131,7 +119,6 @@ alias ll='echo \$(ls -Ahl | wc -l)'
 alias lu="ls -a"
 PS1='\[\033[00;32m\]\u\[\033[00m\]@\[\033[00;32m\]$(cat ~/instance_name):\[\033[00m\]\w\[\033[00;32m\]\$\[\033[0m\]\n'
 EOF
-
 # ---------- ROOT  ----------
 cat <<EOF | sudo tee /root/.bashrc
 if [ -f /etc/bashrc ]; then
@@ -141,6 +128,5 @@ alias ll='echo \$(ls -Ahl | wc -l)'
 alias lu="ls -a"
 PS1='\[\033[00;31m\]\u\[\033[00m\]@\[\033[00;31m\]$(cat ~/instance_name):\[\033[00m\]\w\[\033[00;31m\]\$\[\033[0m\]\n'
 EOF
-
 echo "Success" | tee -a $LOG
 echo "Done."
