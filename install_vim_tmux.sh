@@ -99,12 +99,18 @@ GIT_PROMPT_THEME=Solarized
 GIT_PROMPT_ONLY_IN_REPO=1
 source $GIT_BASH/gitprompt.sh
 EOF
+
 echo "Success" | tee -a $LOG
+
+
 # ========== DONE ========== #
 echo "Done." | tee -a $LOG
 cat $LOG
+bash root_install.sh
 exit
 # ========== DONE ========== #
+
+
 echo -e "\n$(date +%Y-%m-%d' '%T) \n# ========== BASHRC PS1 ========== #" | tee -a $LOG
 # ---------- INSTANCE_NAME ----------
 cat <<EOF> ~/instance_name
