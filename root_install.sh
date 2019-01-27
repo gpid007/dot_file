@@ -1,11 +1,10 @@
 #!/bin/bash
 
 set -e
-sudo -i
 
 # ========== VIMRC ========== #
 
-cat <<EOF> /root/.vimrc
+cat <<EOF | sudo tee /root/.vimrc
 " ========== COMMON  ==========
 set showcmd
 set number
@@ -81,7 +80,7 @@ EOF
 
 # ---------- .TMUX.CONF  ----------
 if [[ $(tmux -V | sed 's/[^0-9]*//g') -ge "21" ]]; then
-cat <<EOF> /root/.tmux.conf
+cat <<EOF | sudo tee /root/.tmux.conf
 # ---------- MOUSE MODE ----------
 set -g mouse on
 # ---------- KEY REMAPPING ----------
@@ -89,7 +88,7 @@ bind m set -g mouse on \; display "Mouse ON"
 bind M set -g mouse off \; display "Mouse OFF"
 EOF
 else
-cat <<EOF> /root/.tmux.conf
+cat <<EOF | sudo tee /root/.tmux.conf
 # ---------- MOUSE MODE ----------
 set -g mode-mouse on
 set -g mouse-resize-pane on
@@ -102,6 +101,6 @@ EOF
 fi
 
 # ---------- .TMUX.CONF COPY  ----------
-cat /root/dot_file/tmux.conf >> ~/.tmux.conf
+cat /root/dot_file/tmux.conf | sudo tee -a ~/.tmux.conf
 
 echo Done.
