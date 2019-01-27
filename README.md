@@ -10,12 +10,12 @@ Copy paste install
 
 ## CONFIG
 
-### PUTTY
+GUI settings for `PUTTY`
 ```bash
     Connection > Data > Terminal-type-string = xterm-256color
 ```
 
-### GNOME-TERMINAL
+GUI settings for `gnome-terminal`
 ```bash
     Preferences > Colors
         Text and Background Color > Built-in schemes: Solarized dark
