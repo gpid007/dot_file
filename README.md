@@ -1,10 +1,10 @@
 # INSTALL
-
-## RUN
+Copy paste install
 
 ```bash
-   git clone https://github.com/gpid007/dot_file.git $HOME
+    git clone https://github.com/gpid007/dot_file.git $HOME
     ./dot_file/install_vim_tmux.sh
+    ./dot_file/root_install.sh
 ```
 
 
@@ -24,23 +24,23 @@
 ```
 
 
-## INFO
+## ADDENDUM
 
-### TMUX
+Included `tmux` configuration
 ```bash
     cat <<EOF>> ~/.tmux.conf
     set -g default-terminal "screen-256color"
     EOF
 ```
 
-### SCREEN
+Excluded `screen` config
 ```bash
     cat <<EOF>> ~/.screenrc
     term "screen-256color"
     EOF
 ```
 
-### VIM
+Excluded `vim` config for `screen`
 ```bash
     cat <<EOF>>~/.vimrc
     if &term == "screen"
