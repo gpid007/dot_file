@@ -110,6 +110,7 @@ set hlsearch
 set background=dark
 colorscheme solarized8_high "_flat
 set colorcolumn=80
+highlight ColorColumn ctermbg=black guibg=black
 
 " ---------- INDENT GUIDES ----------
 highlight LineNr ctermfg=darkgray

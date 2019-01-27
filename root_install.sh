@@ -3,10 +3,9 @@
 set -e
 sudo -i
 
-
 # ========== VIMRC ========== #
 
-cat <<EOF> ~/.vimrc
+cat <<EOF> /root/.vimrc
 " ========== COMMON  ==========
 set showcmd
 set number
@@ -26,6 +25,7 @@ syntax on
 set hlsearch
 set background=dark
 set colorcolumn=80
+highlight ColorColumn ctermbg=black guibg=black
 
 " ---------- FILENAME COMPLETION ----------
 set wildmode=longest,list,full
@@ -81,7 +81,7 @@ EOF
 
 # ---------- .TMUX.CONF  ----------
 if [[ $(tmux -V | sed 's/[^0-9]*//g') -ge "21" ]]; then
-cat <<EOF> ~/.tmux.conf
+cat <<EOF> /root/.tmux.conf
 # ---------- MOUSE MODE ----------
 set -g mouse on
 # ---------- KEY REMAPPING ----------
@@ -89,7 +89,7 @@ bind m set -g mouse on \; display "Mouse ON"
 bind M set -g mouse off \; display "Mouse OFF"
 EOF
 else
-cat <<EOF> ~/.tmux.conf
+cat <<EOF> /root/.tmux.conf
 # ---------- MOUSE MODE ----------
 set -g mode-mouse on
 set -g mouse-resize-pane on
@@ -102,5 +102,6 @@ EOF
 fi
 
 # ---------- .TMUX.CONF COPY  ----------
-cat ~/dot_file/tmux.conf >> ~/.tmux.conf
+cat /root/dot_file/tmux.conf >> ~/.tmux.conf
 
+echo Done.
