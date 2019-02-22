@@ -12,6 +12,7 @@ https://www.booleanworld.com/introduction-linux-file-permissions/
 ### Docker
 https://docs.docker.com/engine/docker-overview/
 https://hub.docker.com/r/amancevice/superset/
+https://medium.com/@vantakusaikumar562/integrating-superset-with-postgres-database-using-docker-c773304ec85e
 
 ### Postgres
 https://github.com/snowplow/snowplow/wiki/Setting-up-PostgreSQL
@@ -115,5 +116,24 @@ psql -U postgres pagila < pagila-data.sql
 
 ## Superset
 ```bash
-postgresql+psycopg2://superset:superset:18.217.211.163@5432/pagila
+DCID=$(docker ps -a | grep superset | awk '{print$1}')
+DCID=$(docker ps -aq)
+
+sudo -i
+DCIP=$(grep $DCID /var/lib/docker/containers/$DCID*/hosts | awk '{print$1}')
+echo -e "Add this to -- pg_hba.conf 
+    host    all             all             18.217.211.164/32            trust
+Enter this in SQLAlchemy URI
+    postgresql+psycopg2://DB_USER:DB_PASS@HOST_IP:5432/DB_NAME
+    postgresql+psycopg2://superset:superset:18.217.211.163@5432/pagila
+"
+vim /var/lib/pgsql/data/pg_hba.conf   
+service postgresql restart
+exit
 ```
+1. Sources > Databases > Save
+1. Sources > Tables >
+    Table Name  = actor
+    Database    = pagila
+    Schema      = public
+
