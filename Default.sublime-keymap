@@ -1,0 +1,15 @@
+
+mmand": "title_case" },
+
+    { "keys": ["shift+backspace"], "command": "insert", "args": {"characters": "\n"} },
+    { "keys": ["ctrl+period"], "command": "copy" },
+    { "keys": ["ctrl+comma"], "command": "paste" },
+
+    { "keys": ["ctrl+alt+o"], "command": "open_project"},
+    { "keys": ["ctrl+alt+s"], "command": "save_project_as"},
+    { "keys": ["ctrl+alt+q"], "command": "close_workspace"},
+
+    { "keys": ["ctrl+2"], "command": "insert", "args": {"characters": "@"} },
+
+]
+

@@ -57,19 +57,35 @@
 		"morphosyntactic",
 		"lemmatizer"
 	],
+	"anaconda_linting": false,
+	"color_scheme": "Packages/Solarized Color Scheme/Solarized (dark).sublime-color-scheme",
+	"default_line_ending": "unix",
 	"font_face": "droid sans mono",
-	"font_size": 11,
+	"font_size": 12,
+	"gutter": true,
+	"hide_minimap": "true",
 	"ignored_packages":
 	[
 		"Vintage"
 	],
+	"overlay_scroll_bars": "enabled",
+	"rulers":
+	[
+		80
+	],
 	"show_encoding": true,
 	"show_line_endings": true,
 	"spell_check": true,
+	"theme": "Soda SolarizedDark.sublime-theme",
 	"translate_tabs_to_spaces": true,
-	"trim_trailing_white_space_on_save": true,
- "anaconda_linting": false,
- "hide_minimap": "true",
-
+	"trim_trailing_white_space_on_save": true
 }
 
+/* -INSTALLED PACKAGES-
+    Block Cursor Everyqhere
+    MagiclessQuotes
+    Package Control
+    Solarized Color Scheme
+    Solarized Toggle
+    Theme - SodaSolarizedDark
+*/
