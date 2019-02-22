@@ -1,19 +1,67 @@
-# Docker tutorial
+# AWS EC2 Linux Docker Superset Postgres
 
 ## Resources
-```
+
+### AWS
+https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html
+
+### Linux
+https://danielmiessler.com/study/unixlinux_permissions/
+https://www.booleanworld.com/introduction-linux-file-permissions/
+
+### Docker
 https://docs.docker.com/engine/docker-overview/
 https://hub.docker.com/r/amancevice/superset/
+
+### Postgres
+https://github.com/snowplow/snowplow/wiki/Setting-up-PostgreSQL
+https://gist.github.com/Kartones/dd3ff5ec5ea238d4c546
+http://www.postgresqltutorial.com/postgresql-sample-database/
+http://www.postgresql.org/docs/7.3/static/app-pgrestore.html
+https://github.com/morenoh149/postgresDBSamples
+https://medium.com/coding-blocks/creating-user-database-and-adding-access-on-postgresql-8bfcd2f4a91e
+```
+    \l      list databases
+    \c      connect with database
+    \dt     describe all table
+    \d+     describe table;
 ```
 
-## Setup
+### Superset
+https://medium.com/@vantakusaikumar562/integrating-superset-with-postgres-database-using-docker-c773304ec85e
+https://galaxydatatech.com/2017/11/08/database-connection/
+https://superset.incubator.apache.org/tutorial.html
+
+
+## EC2 Instance
+1. Service > EC2
+1. Launch Instance
+1. Amazon Linux 2 AMI (HVM), SSD Volume Type
+1. t2.micro
+1. Next: Configure Instance Details
+1. Next: Add Storage << 30
+1. Next: Add Tags << Name = your-name
+1. Next: Configure Security Group
+1. Open: 22, 80, 443, 5432
+1. Review and Launch
+1. Launch
+1. Create and download secret-key.pem
+1. Convert pem to ppk and follow next point
+1. https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html
+1. ssh into your instance
+
+
+## Install
 ```bash
 sudo yum update -y
 sudo yum install -y git tmux
 
 git config --global credential.helper store
 sudo amazon-linux-extras install docker -y
+```
 
+## Docker
+```bash
 sudo systemctl start docker
 #sudo service docker start
 
@@ -28,8 +76,6 @@ sudo systemctl start docker
 cat <<EOF> my.csv
 a,b,c
 1,2,3
-4,5,6
-7,8,9
 EOF
 
 docker pull amancevice/superset
@@ -42,4 +88,32 @@ docker exec -it mysuper superset load_examples
 # check ip in aws console
 
 docker exec -u 0 -it mysuper /bin/bash
+```
+
+## Postgres
+```bash
+sudo yum install -y postgresql postgresql-server postgresql-devel postgresql-contrib postgresql-docs
+git clone https://github.com/morenoh149/postgresDBSamples.git
+
+sudo -i
+vim /var/lib/pgsql/data/postgresql.conf # line 59 listen_addresses='*', 63 uncomment
+vim /var/lib/pgsql/data/pg_hba.conf # peer < trust
+exit
+
+sudo service postgresql start
+
+sudo -u postgres psql
+create database pagila;
+create user superset with encrypted password 'superset';
+grant all privileges on database pagila to superset;
+
+psql -U postgres pagila < pagila-schema.sql
+psql -U postgres pagila < pagila-data.sql
+
+```
+
+
+## Superset
+```bash
+postgresql+psycopg2://superset:superset:18.217.211.163@5432/pagila
 ```
