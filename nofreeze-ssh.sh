@@ -1,28 +1,35 @@
 #!/bin/bash
 set -e
 
-echo -e "
+sudo echo -e "
 Enter integer to set AliveInterval for
-    1) client
-    2) server
+    1) Client
+    2) Server
 " 
 read CHOICE
 
 SSH_CONFIG=/etc/ssh/ssh_config
-CLIENT="\n# nofreeze\nHost *\nServerAliveInterval 100\n"
-SERVER="\n# nofreze\nClientAliveInterval 60\nTCPKeepAlive yes\nClientAliveCountMax 10000\n"
+CLIENT="    ServerAliveInterval 100"
+SERVER="# nofreze KeepAlive
+ClientAliveInterval 60
+TCPKeepAlive yes
+ClientAliveCountMax 10000"
 
 if [ $CHOICE -eq 1 ]; then
 echo Client
-if [ ! grep -qPzo $CLIENT $SSH_CONFIG ]; then
-sudo echo -e $CLIENT >> $SSH_CONFIG
+if ! grep -qPzo $CLIENT $SSH_CONFIG; then
+cat <<EOF | sudo tee -a $SSH_CONFIG
+$CLIENT
+EOF
 fi
 fi
 
 if [ $CHOICE -eq 2 ]; then
-if [ ! grep -qPzo $SERVER $SSH_CONFIG ]; then
+if ! grep -qPzo $SERVER $SSH_CONFIG; then
 echo Server
-sudo echo -e $SERVER >> $SSH_CONFIG
+cat <<EOF | sudo tee -a $SSH_CONFIG 
+$SERVER
+EOF
 fi
 fi
 
