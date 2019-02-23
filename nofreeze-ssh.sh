@@ -1,36 +1,33 @@
 #!/bin/bash
 set -e
 
+SSH_CONFIG=/etc/ssh/ssh_config
+CLIENT="# Client KeepAlive\nServerAliveInterval 100"
+SERVER="# Server KeepAlive\nClientAliveInterval 60\nTCPKeepAlive yes\nClientAliveCountMax 10000"
+
+tail $SSH_CONFIG
 sudo echo -e "
 Enter integer to set AliveInterval for
     1) Client
     2) Server
-" 
+    3) Exit"
 read CHOICE
 
-SSH_CONFIG=/etc/ssh/ssh_config
-CLIENT="    ServerAliveInterval 100"
-SERVER="# nofreze KeepAlive
-ClientAliveInterval 60
-TCPKeepAlive yes
-ClientAliveCountMax 10000"
+case $CHOICE in
+    1|[Cc]lient)  echo Client
+        if ! grep -Plz $CLIENT $SSH_CONFIG; then
+            echo -e $CLIENT | sudo sh -c "cat >> $SSH_CONFIG"
+        fi
+    ;;
+    2|[Ss]erver)  echo Server    
+        if ! grep -Plz $SERVER $SSH_CONFIG; then
+            echo -e $SERVER | sudo sh -c "cat >> $SSH_CONFIG"
+        fi
+    ;;
+    3|[Ee]xit)  echo Abort.
+        exit
+    ;;
+esac
 
-if [ $CHOICE -eq 1 ]; then
-echo Client
-if ! grep -qPzo $CLIENT $SSH_CONFIG; then
-cat <<EOF | sudo tee -a $SSH_CONFIG
-$CLIENT
-EOF
-fi
-fi
-
-if [ $CHOICE -eq 2 ]; then
-if ! grep -qPzo $SERVER $SSH_CONFIG; then
-echo Server
-cat <<EOF | sudo tee -a $SSH_CONFIG 
-$SERVER
-EOF
-fi
-fi
-
-echo Done.
+tail $SSH_CONFIG
+echo -e "\nDone."
