@@ -1,7 +1,10 @@
 #!/bin/bash
 set -e
-
-echo -e "# ====================== #\n#    INSTALL VIM TMUX    #\n# ====================== #"
+echo -e "
+# ====================== #
+#    INSTALL VIM TMUX    #
+# ====================== #
+"
 VIM=~/vim
 VDOT=~/.vim
 GIT_BASH=~/.bash-git-prompt
@@ -96,7 +99,7 @@ EOF
 
 
 echo "# ========== ROOT ========== #"
-bash root_install.sh
+bash ./root_install.sh
 exit
 
 
