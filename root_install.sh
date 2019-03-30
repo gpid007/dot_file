@@ -5,32 +5,20 @@ set -e
 # ========== VIMRC ========== #
 
 cat <<EOF | sudo tee /root/.vimrc
-" ========== COMMON  ==========
-set showcmd
-set number
+" ========== VIM NATIVE ==========
+
+" --------- Interaction ----------
 set encoding=utf-8
-set clipboard=unnamed
-set ruler
 set mouse=a
+set clipboard=unnamed
+set pastetoggle=<F2>
+set showcmd
 set showmode
-set ignorecase
+set wildmode=longest,list,full 
+set timeoutlen=300
 " set statusline+=%F
 
-" ---------- COLOR ----------
-" let g:solarized_termcolors=256
-" let g:solarized_use16=1
-" colorscheme solarized8_high "_flat
-syntax on
-set hlsearch
-set background=dark
-set colorcolumn=80
-highlight ColorColumn ctermbg=black guibg=black
-
-" ---------- FILENAME COMPLETION ----------
-set wildmode=longest,list,full
-
-" ========== TAB ==========
-" set paste
+" ---------- Tab ---------- 
 set nowrap
 set autoindent
 set tabstop=4
@@ -38,26 +26,33 @@ set shiftwidth=4
 set softtabstop=4 expandtab
 set backspace=indent,eol,start
 
-" ========== REMAPPING ==========
-set timeoutlen=300
+" ---------- Color ----------
+syntax on
+set number
+set ignorecase
+set hlsearch
+set ruler
+set colorcolumn=80
+highlight ColorColumn ctermbg=black guibg=black
+highlight LineNr ctermfg=darkgray
+
+" ---------- Alternate Escape ----------
 imap ,, <C-c>
 inoremap ,, <C-c>
-" inoremap ,, <C-c>l
-" inoremap hh x<C-c>"_x
 
-" ----- Alternate Arrows -----
+" ---------- Alternate Arrows ----------
 " <Up> k; <Down> j; <Left> h; <Right> l
 noremap h k
 noremap k j
 noremap j h
 
-" ----- Alternate Yank Put -----
+" ---------- Alternate Yank Put ----------
 noremap <Leader>y "*y
 noremap <Leader>p "*p
 noremap <Leader>Y "+y
 noremap <Leader>P "+p
 
-" ----- Tab Commands -----
+" ---------- Tab Commands ----------
 nnoremap <C-t> :tabnew<CR>
 inoremap <C-t> :<C-c>:tabnew<CR>
 nnoremap <C-x> :tabnext<CR>
@@ -65,7 +60,7 @@ inoremap <C-x> :<C-c>:tabnext<CR>
 nnoremap <C-z> :tabprevious<CR>
 inoremap <C-z> :<C-c>:tabprevious<CR>
 
-" ----- Complete Brackets -----
+" ---------- Complete Brackets ----------
 " inoremap ( ()<left>
 " inoremap " ""<left>
 " inoremap ' ''<left>
@@ -102,5 +97,3 @@ fi
 
 # ---------- .TMUX.CONF COPY  ----------
 cat /root/dot_file/tmux.conf | sudo tee -a ~/.tmux.conf
-
-echo Done.

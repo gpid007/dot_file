@@ -9,10 +9,10 @@ VIM=~/vim
 VDOT=~/.vim
 GIT_BASH=~/.bash-git-prompt
 DIR_ARR=($VIM $VDOT $GIT_BASH)
-OWN_PATH=$(dirname "$relpath $0")
+SCRIPT_PATH=$(pwd -P)
 
 
-echo "# ========== OS-RELEASE INSTALL ========== #"
+echo -e "\n# ========== OS-RELEASE INSTALL ========== #"
 if [ $(which yum) ]; then
     sudo yum install -y vim git gcc gcc-c++ ctags cmake python3-devel golang ncurses-devel tmux
 else
@@ -20,7 +20,7 @@ else
 fi
 
 
-echo "# ========== GIT CLONE ========== #"
+echo -e "\n# ========== GIT CLONE ========== #"
 cd $HOME
 for dir in ${DIR_ARR[@]}; do
     if [ -d "$dir" ]; then
@@ -39,7 +39,7 @@ git clone https://github.com/itchyny/lightline.vim $VDOT/bundle/lightline.vim
 # git clone https://github.com/Rip-Rip/clang_complete.git $VDOT/clang_complete
 
 
-echo "# ========== VIM 8 ========== #"
+echo -e "\n# ========== VIM 8 ========== #"
 
 # ---------- VIM 8 INSTALL ---------- #
 cd $VIM
@@ -63,7 +63,7 @@ cp ~/dot_file/vimrc ~/.vimrc
 vim -c 'BundleInstall!' -c 'qa!'
 
 
-echo "# ========== TMUX ========== #"
+echo -e "\n# ========== TMUX ========== #"
 
 # ---------- .TMUX.CONF  ----------
 if [[ $(tmux -V | sed 's/[^0-9]*//g') -ge "21" ]]; then
@@ -90,7 +90,7 @@ fi
 cat ~/dot_file/tmux.conf >> ~/.tmux.conf
 
 
-echo "# ========== GIT BASH ========= #"
+echo -e "\n# ========== GIT BASH ========= #"
 cat <<EOF>> ~/.bashrc
 GIT_PROMPT_THEME=Solarized
 GIT_PROMPT_ONLY_IN_REPO=1
@@ -98,31 +98,5 @@ source $GIT_BASH/gitprompt.sh
 EOF
 
 
-echo "# ========== ROOT ========== #"
-bash ./root_install.sh
-exit
-
-
-echo "# ========== BASHRC PS1 ========== #" 
-# ---------- INSTANCE_NAME ----------
-cat <<EOF> ~/instance_name
-micro1
-EOF
-# ---------- EC2-USER ----------
-cat <<EOF> ~/.bashrc
-if [ -f /etc/bashrc ]; then
-    . /etc/bashrc
-fi
-alias ll='echo \$(ls -Ahl | wc -l)'
-alias lu="ls -a"
-PS1='\[\033[00;32m\]\u\[\033[00m\]@\[\033[00;32m\]$(cat ~/instance_name):\[\033[00m\]\w\[\033[00;32m\]\$\[\033[0m\]\n'
-EOF
-# ---------- ROOT  ----------
-cat <<EOF | sudo tee /root/.bashrc
-if [ -f /etc/bashrc ]; then
-    . /etc/bashrc
-fi
-alias ll='echo \$(ls -Ahl | wc -l)'
-alias lu="ls -a"
-PS1='\[\033[00;31m\]\u\[\033[00m\]@\[\033[00;31m\]$(cat ~/instance_name):\[\033[00m\]\w\[\033[00;31m\]\$\[\033[0m\]\n'
-EOF
+echo -e "\n# ========== ROOT ========== #"
+bash $SCRIPT_PATH/root_install.sh
