@@ -27,7 +27,7 @@ git clone https://github.com/magicmonty/bash-git-prompt.git $GIT_BASH --depth=1
 
 
 echo -e "\n# ========== VIM ========== #"
-cp ~/dot_file/vimrc ~/.vimrc
+cp ~/dot_file/light-vimrc ~/.vimrc
 
 
 echo -e "\n# ========== TMUX ========== #"
