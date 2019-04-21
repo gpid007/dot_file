@@ -14,8 +14,12 @@ SCRIPT_PATH=$(pwd -P)
 
 echo -e "\n# ========== OS-RELEASE INSTALL ========== #"
 if [ $(which yum) ]; then
+    sudo yum install update -y
+    sudo yum install upgrade -y
     sudo yum install -y vim git gcc gcc-c++ ctags cmake python3-devel golang ncurses-devel tmux
 else
+    sudo apt install update -y
+    sudo apt install upgrade -y
     sudo apt install -y vim git gcc g++ ctags cmake python3-dev golang-go ncurses-dev tmux
 fi
 
