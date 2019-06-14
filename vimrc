@@ -28,7 +28,6 @@ filetype plugin indent on
 set encoding=utf-8
 set mouse=a
 set clipboard=unnamed
-set pastetoggle=<F2>
 set showcmd
 set showmode
 set wildmode=longest,list,full 
@@ -122,5 +121,9 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=236
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=black
 
 " ---------- Function Keys ----------
+set pastetoggle=<F2>
+map <F3> :set wrap! breakindent!<CR>
+map <F4> :set number!<CR>
+map <F5> :vsp<CR> "vertical split
 map <F7> :NERDTreeToggle<CR>
 map <F8> :TagbarToggle<CR>
