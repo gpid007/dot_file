@@ -15,11 +15,9 @@ SCRIPT_PATH=$(pwd -P)
 echo -e "\n# ========== OS-RELEASE INSTALL ========== #"
 if [ $(which yum) ]; then
     sudo yum install update -y
-    sudo yum install upgrade -y
     sudo yum install -y vim git gcc gcc-c++ ctags cmake python3-devel golang ncurses-devel tmux
 else
     sudo apt install update -y
-    sudo apt install upgrade -y
     sudo apt install -y vim git gcc g++ ctags cmake python3-dev golang-go ncurses-dev tmux
 fi
 
@@ -70,7 +68,8 @@ vim -c 'BundleInstall!' -c 'qa!'
 echo -e "\n# ========== TMUX ========== #"
 
 # ---------- .TMUX.CONF  ----------
-if [[ $(tmux -V | sed 's/[^0-9]*//g') -ge "21" ]]; then
+if [[ $(tmux -V | sed 's/[^0-9]*//g') -ge "21" ]]
+then
 cat <<EOF> ~/.tmux.conf
 # ---------- MOUSE MODE ----------
 set -g mouse on
@@ -90,17 +89,64 @@ bind m set -g mode-mouse on \; set -g mouse-resize-pane on \; set -g mouse-selec
 bind M set -g mode-mouse off \; set -g mouse-resize-pane off \; set -g mouse-select-pane off \; set -g mouse-select-window off \; display "Mouse OFF"
 EOF
 fi
-# ---------- .TMUX.CONF COPY  ----------
 cat ~/dot_file/tmux.conf >> ~/.tmux.conf
 
 
-echo -e "\n# ========== GIT BASH ========= #"
+echo -e "\n# ========== GIT ========= #"
+
+# ---------- .AWS/CONFIG ----------
+mkdir -p ~/.aws
+cat <<\EOF> ~/.aws/config
+[default]
+        region = eu-central-1
+EOF
+
+# ---------- .BASHRC  ----------
 cat <<EOF>> ~/.bashrc
 GIT_PROMPT_THEME=Solarized
 GIT_PROMPT_ONLY_IN_REPO=1
 source $GIT_BASH/gitprompt.sh
 EOF
 
+# ---------- .GITCONFIG  ----------
+cat <<\EOF>> ~/.gitconfig
+[credential]
+        helper = !aws codecommit credential-helper $@
+        UseHttpPath = true
+        interactive = never
+[pull]
+        rebase = true
+[alias]
+        co = checkout
+        br = branch
+        cm = commit
+        st = status
+        sh = stash
+        cof = checkout -f
+        cob = checkout -b
+        pushdev = push origin HEAD:refs/for/develop
+        pushsys = push origin HEAD:refs/for/sys
+        pullsys = pull origin sys
+        pulldev = pull origin develop
+EOF
 
-echo -e "\n# ========== ROOT ========== #"
-bash $SCRIPT_PATH/root_install.sh
+# ---------- .GITIGNORE  ----------
+cat <<\EOF> ~/.gitignore
+*~
+*.swp
+*.swo
+EOF
+
+cat <<EOF>> ~/.gitconfig
+[core]
+        excludesfile = ~/.gitignore
+EOF
+
+# ---------- GIT CONFIG GLOBAL  ----------
+git config --global core.excludesfile ~/.gitignore
+git config --global user.name
+git config --global user.email
+
+
+# echo -e "\n# ========== ROOT ========== #"
+# bash $SCRIPT_PATH/root_install.sh
